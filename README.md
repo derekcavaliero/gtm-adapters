@@ -1,6 +1,8 @@
 # Google Tag Manager Adapters
 This is a repository that contains adapters for sending interaction data to the GTM dataLayer for various embedded content ranging from Live Chat, Video, Forms etc...
 
+Please note, these adapaters are meant to be abstract. They are build to send raw data into the dataLayer for use inside various tags and triggers via variables. This repository is NOT focused on any specific adtech/martech implementation. 
+
 ## Forms
 
 ### HubSpot
