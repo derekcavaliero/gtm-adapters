@@ -11,7 +11,7 @@ Please note, these adapaters are meant to be abstract. They are build to send ra
 
 ## Chat & Chatbots
 
-#### HubSpot
+### HubSpot
 
 ### Drift
 
