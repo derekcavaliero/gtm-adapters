@@ -9,13 +9,15 @@ Please note, these adapaters are meant to be abstract. They are build to send ra
 
 ### Marketo
 
-## Live Chat & Chatbots
+## Chat & Chatbots
 
-### HubSpot
+#### HubSpot
 
 ### Drift
 
-### LiveChatNow
+### LiveChat
+
+### Terminus
 
 ## Meetings
 
