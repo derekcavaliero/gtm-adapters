@@ -1,12 +1,10 @@
 # Google Tag Manager (GTM) Adapters for Embedded Content
-This is a repository that contains adapters for sending interaction data to the GTM dataLayer for various types of embedded content such as: Live Chat, Video, Forms etc...
+This repository contains adapters for sending interaction data to the GTM dataLayer for various types of embedded content such as: Live Chat, Video, Forms, Meetings etc...
 
-**Please note, these adapaters are meant to be abstract.** They are built to send raw data into the dataLayer for use inside various tags and triggers via variables. The adapters are written in a way that should allow easy customization of the dataLayer payload sent with the event. 
-
-As such, the adapters in this repository will __never__ be configured to send data directly to a certain adtech/martech platform.
+**These adapaters are meant to push data in an abstract/reusable format.** They are built to send raw data into the dataLayer for use inside various tags and triggers via variables. As such, the adapters in this repository will __never__ be configured to send data directly to a certain adtech/martech platform or TMS.
 
 ## Styles & Conventions
-**These are style preferences for the sake of maintaining this repository.** The adapters should be easy enough to configure to your own personal implementation needs.
+**These are opinionated style preferences for the sake of maintaining this repository.** Each adapter should be easy to configure to your own preferences if the default formats do not match your specific implementation requirements.
 
 ### dataLayer Global
 It is assumed that the website/appication is using the default `window.dataLayer` global. Changing the default dataLayer global variable is uncommon. However, if the dataLayer *has* been customized, the adapters will not work without modifying the dataLayer references in each script. 
@@ -24,6 +22,8 @@ The **`{{object}}_{{action}}`** portion of the event name is always formatted in
 
 **`{{action}}`** is a highly variable value that describes the action taking place (e.g. `submit` or `start`, `complete`). These values are usually derrived from the events emitted from the embedded content via a mapping inside the adapter.
 
+Each adapter should contain a comment that lists the event names assuming the default configuration is used.
+
 #### Exceptions
 Certain kinds of adapters may choose to push data to GTM in a format that is used by built-in triggers and variables (this is fairly common with video adapters). This often times is done to simplify the use of the data without needing to create excess variables and triggers. 
 
@@ -31,6 +31,9 @@ Certain kinds of adapters may choose to push data to GTM in a format that is use
 Each adapter in this repository should be a stand-alone file ready for use inside a Custom HTML tag. Most of these adapters will load once per-page using an All Pages (or similar) trigger type. Adapters with specific implementation requirements or caveats will include implementation notes at the top of the file.
 
 It is not required to implement these adapters with GTM. They can be included as part of a website/applications main script files if desired. 
+
+### What events are sent?
+Every adapter will have different event names depending on the functionality of the content being interacted with. Additionally, each adapter should contain a comment that lists the event names sent to GTM assuming the default configuration is used. This comment is likely near the `dataLayer.push()` command where the event name is defined.
 
 ## Browser Support
 These adapters do not polyfill any unsupported APIs for older browsers such as Internet Explorer. **It is the implementors responsibility to polyfill if needed.** 
