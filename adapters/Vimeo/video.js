@@ -5,6 +5,7 @@
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
  * Credits: 
  * References: 
+ * https://developer.vimeo.com/player/sdk/reference
  */
 
 (function(window, document) {
