@@ -1,6 +1,6 @@
 /**
  * GTM dataLayer Adapter for Calendly embedded meeting interactions.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Github: https://github.com/derekcavaliero/gtm-adapters
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
  * Credits: 
@@ -17,13 +17,8 @@ window.addEventListener('message', function(message) {
     if (allowedOrigins.indexOf(message.origin) === -1) 
         return;
 
-    var action;
-
-    /**
-     * `message.data.event` is an assumed value and may not exist. 
-     * This may need set to a different property in the `message.data` object.
-     */
-    var messageType = message.data.event.replace('calendly.', ''); 
+    var action,
+        messageType = message.data.event.replace('calendly.', ''); 
 
     /**
      * Message : Action mapping
@@ -63,10 +58,10 @@ window.addEventListener('message', function(message) {
         /**
          * Should result in the following dataLayer events:
          * 
-         * - hubspot.form_loaded
-         * - hubspot.form_failed_validation
-         * - hubspot.form_submit
-         * - hubspot.form_submitted
+         * - calendly.meeting_list_view
+         * - calendly.meeting_type_view
+         * - calendly.meeting_slot_selected
+         * - calendly.meeting_booked
          */
         event: namespace + '.' + object + '_' + action,
 
