@@ -89,7 +89,8 @@ Pull requests will not be accepted unless they adhere to the following:
 ### Vidyard
 #### Videos (Coming Soon)
 ### Vimeo
-#### Videos (Coming Soon)
+#### Videos
+`adapters/Vimeo/video.js`
 ### Wistia
 #### Videos (Coming Soon)
 ### YouTube
