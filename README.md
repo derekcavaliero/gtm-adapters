@@ -47,9 +47,11 @@ Pull requests will not be accepted unless they adhere to the following:
 
 - Adapters must follow the styles and naming conventions noted above in the README.
 - If an adapter uses a documented API for the 3rd party tool - please leave a link to the documentation in a comment at the top of the adapter.
-- Adapters should not require any 3rd party JS library with the exception of a library loaded by the embdded content the adapter is written for.
-- Credit must be given to the original authors of any previously written code  refactored for this repository. 
+- Adapters should not require any 3rd party JS library with the exception of a library loaded by the embedded content the adapter is written for.
+- Credit must be given to the original authors of any previously written code refactored for this repository. 
 - No build tooling is to be used with the exception being the included template generators via `npm run generate`
+
+Additionally, when submitting a pull request, please provide an example URL where this adapter can be tested.
 
 
 ---
