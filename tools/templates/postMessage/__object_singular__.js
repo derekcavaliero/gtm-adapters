@@ -57,10 +57,7 @@ window.addEventListener('message', function(message) {
         /**
          * Should result in the following dataLayer events:
          * 
-         * - hubspot.form_loaded
-         * - hubspot.form_failed_validation
-         * - hubspot.form_submit
-         * - hubspot.form_submitted
+         * - __platform__(lowerCase).__object_singular__(lowerCase)_
          */
         event: namespace + '.' + object + '_' + action,
 
