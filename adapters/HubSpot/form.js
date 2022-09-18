@@ -1,6 +1,6 @@
 /**
  * GTM dataLayer Adapter for HubSpot embedded form interactions.
- * Version: 1.0.0
+ * Version: 1.0.1
  * GitHub: https://github.com/derekcavaliero/gtm-adapters/
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
  * Credits: 
@@ -27,7 +27,7 @@ window.addEventListener('message', function(message) {
 
     if (!subscribeTo.hasOwnProperty(callback)) return;
 
-    var action = subscribeTo[messageType];
+    var action = subscribeTo[callback];
 
     var platform = 'hubspot',
         object = 'form',
