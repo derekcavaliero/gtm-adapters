@@ -9,7 +9,7 @@ As such, the adapters in this repository will __never__ be configured to send da
 **These are style preferences for the sake of maintaining this repository.** The adapters should be easy enough to configure to your own personal implementation needs.
 
 ### dataLayer Global
-It is assumed that the website/appication is using the default `window.dataLayer` global. Changing the default dataLayer global variable is uncommon. However, if the dataLayer *has* been customized, the adapters will not work without modifying the dataLayer reference in each script. 
+It is assumed that the website/appication is using the default `window.dataLayer` global. Changing the default dataLayer global variable is uncommon. However, if the dataLayer *has* been customized, the adapters will not work without modifying the dataLayer references in each script. 
 ### dataLayer Event Names
 
 Event names are *typically* in the following format:
@@ -49,47 +49,48 @@ Pull requests will not be accepted unless they adhere to the following:
 - If an adapter uses a documented API for the 3rd party tool - please leave a link to the documentation in a comment at the top of the adapter.
 - Adapters should not require any 3rd party JS library with the exception of a library loaded by the embdded content the adapter is written for.
 - Credit must be given to the original authors of any previously written code  refactored for this repository. 
-- No build tooling is to be used. These code snippets are meant to be dropped directly into GTM and as such should not be minified or use unsupported JS syntax.
+- No build tooling is to be used with the exception being the included template generators via `npm run generate`
 
 
 ---
 
-## Adapters
-### Forms
+## Adapters by Platform
 
-#### HubSpot
+### Calendly
 
-#### Marketo
+#### Meetings
+`adapters/Calendly/meeting.js`
+### ChiliPiper
 
-### Chat & Chatbots
+#### Meetings
+`adapters/ChiliPiper/meeting.js`
+### HubSpot
 
-#### HubSpot
+#### Forms 
+`adapters/HubSpot/form.js`
 
-#### Drift
+#### Meetings 
+`adapters/HubSpot/meeting.js`
 
-#### LiveChat
+#### Video 
+`adapters/HubSpot/video.js`
 
-#### Terminus
+#### Live Chat & Chatbots 
+`adapters/HubSpot/chat.js`
 
-### Meetings
+### Marketo
 
-#### HubSpot
+#### Forms (coming soon)
 
-#### Calendly
+### Typeform
 
-#### ChiliPiper
+#### Forms (coming soon)
 
-### Video
-
-#### HubSpot
-
-#### JW Player
-
-#### Vidyard
-
-#### Vimeo
-
-#### Wistia
-
-#### YouTube
-GTM offers a native YouTube trigger that should be utilized for tracking engagement with embedded YouTube videos.
+### Vidyard
+#### Videos (Coming Soon)
+### Vimeo
+#### Videos (Coming Soon)
+### Wistia
+#### Videos (Coming Soon)
+### YouTube
+GTM offers a native YouTube trigger that should be utilized for tracking engagement with embedded YouTube videos. No special adapter should be necessary.
