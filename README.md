@@ -1,4 +1,4 @@
-# Google Tag Manager (GTM) Adapters for Embedded Content
+# Google Tag Manager (GTM) Custom HTML Adapters for Measuring Embedded Content
 This repository contains adapters for sending interaction data to the GTM dataLayer for various types of embedded content such as: Live Chat, Video, Forms, Meetings etc...
 
 **These adapaters are meant to push data in an abstract/reusable format.** They are built to send raw data into the dataLayer for use inside various tags and triggers via variables. As such, the adapters in this repository will __never__ be configured to send data directly to a certain adtech/martech platform or TMS.
