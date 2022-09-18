@@ -1,0 +1,23 @@
+{
+  "name": "gtm-adapters",
+  "version": "1.0.0",
+  "description": "This is a repository that contains adapters for sending interaction data to the GTM dataLayer for various types of embedded content such as: Live Chat, Video, Forms etc...",
+  "scripts": {
+    "generate": "node ./tools/generate.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derekcavaliero/gtm-adapters.git"
+  },
+  "keywords": [],
+  "author": "Derek Cavaliero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/derekcavaliero/gtm-adapters/issues"
+  },
+  "homepage": "https://github.com/derekcavaliero/gtm-adapters",
+  "dependencies": {
+    "generate-template-files": "^3.2.1"
+  }
+}
