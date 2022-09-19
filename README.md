@@ -23,9 +23,40 @@ The **`{{object}}_{{action}}`** portion of the event name is always formatted in
 **`{{action}}`** is a highly variable value that describes the action taking place (e.g. `submit` or `start`, `complete`). These values are usually derrived from the events emitted from the embedded content via a mapping inside the adapter.
 
 Each adapter should contain a comment that lists the event names assuming the default configuration is used.
-
 #### Exceptions
 Certain kinds of adapters may choose to push data to GTM in a format that is used by built-in triggers and variables (this is fairly common with video adapters). This often times is done to simplify the use of the data without needing to create excess variables and triggers. 
+
+### dataLayer Parameters
+
+To keep things a bit more structured. I have decided to put dataLayer variables into two primary objects: `event_context` and `user_context`. These two objects are closely correlated with how tools like GA4 structure event/user parameters in its data model.
+
+`event_context` will contain most of the meaningful data you would want to port into your tags.
+`user_context` will almost always be empty unless customized. It is too hard to set sensible defaults for user scoped data.
+
+### dataLayer Payload Example
+
+Considering all of the above, you could expect to see a dataLayer event in the following format:
+
+```
+{
+    event: '{{namespace}}.{{object}}_{{action}}',
+    event_context: {},
+    user_context: {}
+}
+```
+
+Assuming an adapter for a `HubSpot` `form`, the event could be something like:
+
+```
+{
+    event: 'hubspot.form_submit',
+    event_context: {},
+    user_context: {}
+}
+```
+
+The `event_context` will vary platform-to-platform. Look at the `dataLayer.push()` in each adapter to get an idea of what data is sent.
+
 
 ## How to Use
 Each adapter in this repository should be a stand-alone file ready for use inside a Custom HTML tag. Most of these adapters will load once per-page using an All Pages (or similar) trigger type. Adapters with specific implementation requirements or caveats will include implementation notes at the top of the file.
