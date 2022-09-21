@@ -1,6 +1,6 @@
 /**
  * GTM dataLayer Adapter for HubSpot embedded video interactions.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Github: https://github.com/derekcavaliero/gtm-adapters
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
  * Credits: 
@@ -48,11 +48,14 @@ window.addEventListener('message', function(message) {
      **/
 
     'event': 'gtm.video',
+    
     'gtm.element': player,
     'gtm.elementUrl': videoUrl,
     'gtm.elementId': videoPlayer.id,
+
     'gtm.videoStatus': videoStatus,
     'gtm.videoProvider': platform,
+    'gtm.videoPercent': undefined,
     'gtm.videoDuration': undefined, 
     'gtm.videoTitle': videoTitle,
     'gtm.videoUrl': playerSrc,
@@ -62,7 +65,9 @@ window.addEventListener('message', function(message) {
       object: object,
       video_url: videoUrl,
       video_title: videoTitle,
-      video_action: videoStatus,
+      video_status: videoStatus,
+      video_percent: undefined,
+      video_duration: undefined, 
       video_player_id: videoPlayer.id
     },
 
