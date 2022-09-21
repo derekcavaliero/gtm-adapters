@@ -104,8 +104,8 @@ Additionally, when submitting a pull request, please provide an example URL wher
 
 
 ### HTML5 (Native Browser Elements)
-#### Video
-`adapters/Html5/video.js`
+#### Audio/Video
+`adapters/Html5/audio-video.js`
 
 #### Forms 
 `adapters/HubSpot/form.js`

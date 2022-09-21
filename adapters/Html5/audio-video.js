@@ -1,5 +1,5 @@
 /**
- * GTM dataLayer Adapter for HTML5 embedded video interactions.
+ * GTM dataLayer Adapter for HTML5 embedded audio/video interactions.
  * Version: 1.0.0
  * Github: https://github.com/derekcavaliero/gtm-adapters
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
@@ -11,8 +11,7 @@ dataLayer = window.dataLayer || [];
 (function() {
 
   var platform = 'html5',
-      namespace = platform,
-      object = 'video';
+      namespace = platform;
 
   var progressMarkers = [
     10, 
@@ -27,7 +26,7 @@ dataLayer = window.dataLayer || [];
     return path[path.length-1];
   }
 
-  function setVideoProps(player, force) {
+  function setPlayerProps(player, force) {
 
     var force = typeof force !== 'undefined' ? force : false;
 
@@ -78,41 +77,76 @@ dataLayer = window.dataLayer || [];
       }
     }
 
-    var eventPayload = {
+    var object = player.nodeName.toLowerCase();
+    var action = status;
 
-      'event': 'gtm.video',
+    var eventPayload = {
       'gtm.element': player,
       'gtm.elementUrl': player.currentSrc,
       'gtm.elementId': player.id,
-      'gtm.videoStatus': status,
-      'gtm.videoProvider': platform,
-      'gtm.videoDuration': player.duration, 
-      'gtm.videoPercent': calculated.percent, 
-      'gtm.videoTitle': player.gtmAdapter.file,
-      'gtm.videoUrl': player.currentSrc,
-
-      'event_context': {
-        platform: platform,
-        object: object,
-        video_url: player.currentSrc,
-        video_title: player.gtmAdapter.file,
-        video_action: status,
-        video_player_id: player.id
-      },
-
-      'user_context': {}
-
     };
+
+    if (object == 'video') {
+
+      Object.assign(eventPayload, {
+
+        'event': 'gtm.video',
+        
+        'gtm.videoStatus': status,
+        'gtm.videoProvider': platform,
+        'gtm.videoDuration': player.duration, 
+        'gtm.videoPercent': calculated.percent, 
+        'gtm.videoTitle': player.gtmAdapter.file,
+        'gtm.videoUrl': player.currentSrc,
+
+        'event_context': {
+          video_url: player.currentSrc,
+          video_title: player.gtmAdapter.file,
+          video_provider: platform,
+          video_duration: player.duration,
+          video_percent: calculated.percent, 
+          video_status: status,
+          video_player_id: player.id
+        },
+
+        'user_context': {}
+
+      });
+    
+    } else if (object == 'audio') {
+
+      Object.assign(eventPayload, {
+
+        'event': namespace + '.' + object + '_' + action,
+
+        'event_context': {
+          audio_url: player.currentSrc,
+          audio_title: player.gtmAdapter.file,
+          audio_provider: platform,
+          audio_duration: player.duration,
+          audio_percent: calculated.percent, 
+          audio_status: status,
+          audio_player_id: player.id
+        },
+
+        'user_context': {}
+
+      });
+
+    }
+
+    eventPayload.event_context.platform = platform;
+    eventPayload.event_context.object = object;
 
     window.dataLayer.push(eventPayload);
 
     if ('complete' == status) 
-      setVideoProps(player, true);
+      setPlayerProps(player, true);
 
   }
 
   document.addEventListener('loadedmetadata', function(e) {
-    setVideoProps(e.target);
+    setPlayerProps(e.target);
   }, true);
 
   document.addEventListener('play', function(e) {
@@ -124,6 +158,8 @@ dataLayer = window.dataLayer || [];
   }, true);
 
   document.addEventListener('timeupdate', function(e) {
+
+    var player = e.target;
 
     var percent = checkProgress(player);
 
@@ -142,8 +178,8 @@ dataLayer = window.dataLayer || [];
 
   }, true);
 
-  document.querySelectorAll('video').forEach(function(video) {
-    setVideoProps(video);
+  document.querySelectorAll('video, audio').forEach(function(player) {
+    setPlayerProps(player);
   });
 
 })();
