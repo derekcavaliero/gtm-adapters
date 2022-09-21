@@ -1,6 +1,6 @@
 /**
  * GTM dataLayer Adapter for HTML5 embedded audio/video interactions.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Github: https://github.com/derekcavaliero/gtm-adapters
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
  * Credits: 
@@ -94,6 +94,7 @@ dataLayer = window.dataLayer || [];
         
         'gtm.videoStatus': status,
         'gtm.videoProvider': platform,
+        'gtm.videoElapsedTime': player.currentTime,
         'gtm.videoDuration': player.duration, 
         'gtm.videoPercent': calculated.percent, 
         'gtm.videoTitle': player.gtmAdapter.file,
@@ -103,6 +104,7 @@ dataLayer = window.dataLayer || [];
           video_url: player.currentSrc,
           video_title: player.gtmAdapter.file,
           video_provider: platform,
+          video_elapsed_time: player.currentTime,
           video_duration: player.duration,
           video_percent: calculated.percent, 
           video_status: status,
