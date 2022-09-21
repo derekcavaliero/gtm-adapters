@@ -10,81 +10,81 @@
 dataLayer = window.dataLayer || [];
 window.addEventListener('message', function(message) {
 
-    var allowedOrigins = [
-        'https://app.hubspot.com'
-    ];
+  var allowedOrigins = [
+    'https://app.hubspot.com'
+  ];
 
-    if (allowedOrigins.indexOf(message.origin) === -1) 
+  if (allowedOrigins.indexOf(message.origin) === -1) 
+    return;
+
+  var message = (typeof message.data === 'object') ? message.data : JSON.parse(message.data);
+
+  // Used in the generation of the dataLayer event name. 
+  var action;
+
+  switch (message.type) {
+
+    case 'open-change':
+      action = message.data ? 'window_open' : 'window_close';
+    break;
+
+    case 'external-api-event':
+
+      var eventType = message.data.eventType;
+
+      var subscribeTo = {
+        conversationStarted: 'start',
+        conversationClosed: 'complete',
+        contactAssociated: 'email_submitted',
+        inputStaging: 'message_sent',
+        unreadConversationCountChanged: 'message_'
+      };
+
+      if (!subscribeTo.hasOwnProperty(eventType)) 
         return;
 
-    var message = (typeof message.data === 'object') ? message.data : JSON.parse(message.data);
+      action = subscribeTo[eventType];
 
-    // Used in the generation of the dataLayer event name. 
-    var action;
+      if ('unreadConversationCountChanged' == eventType) {
+        action += (message.data.payload.unreadCount > 0) ? 'received' : 'read';
+      }
 
-    switch (message.type) {
+    break;
+      
+  }
 
-        case 'open-change':
-            action = message.data ? 'window_open' : 'window_close';
-        break;
+  if (!action)
+    return;
 
-        case 'external-api-event':
+  var platform = 'hubspot',
+      namespace = platform,
+      object = 'chat';
 
-            var eventType = message.data.eventType;
+  var eventPayload = {
+      
+    /**
+     * Should result in the following dataLayer events:
+     * 
+     * - hubspot.chat_start
+     * - hubspot.chat_complete
+     * - hubspot.chat_email_submitted
+     * - hubspot.chat_message_sent
+     * - hubspot.chat_message_received
+     * - hubspot.chat_message_read
+     */
+    event: namespace + '.' + object + '_' + action,
 
-            var subscribeTo = {
-                conversationStarted: 'start',
-                conversationClosed: 'complete',
-                contactAssociated: 'email_submitted',
-                inputStaging: 'message_sent',
-                unreadConversationCountChanged: 'message_'
-            };
+    event_context: {
+      platform: platform,
+      object: object,
+      chat_id: message.uuid
+    },
 
-            if (!subscribeTo.hasOwnProperty(eventType)) 
-                return;
+    user_context: {}
 
-            action = subscribeTo[eventType];
+  };
 
-            if ('unreadConversationCountChanged' == eventType) {
-                action += (message.data.payload.unreadCount > 0) ? 'received' : 'read';
-            }
-
-        break;
-        
-    }
-
-    if (!action)
-        return;
-
-    var platform = 'hubspot',
-        namespace = platform,
-        object = 'chat';
-
-    var eventPayload = {
-        
-        /**
-         * Should result in the following dataLayer events:
-         * 
-         * - hubspot.chat_start
-         * - hubspot.chat_complete
-         * - hubspot.chat_email_submitted
-         * - hubspot.chat_message_sent
-         * - hubspot.chat_message_received
-         * - hubspot.chat_message_read
-         */
-        event: namespace + '.' + object + '_' + action,
-
-        event_context: {
-            platform: platform,
-            object: object,
-            chat_id: message.uuid
-        },
-
-        user_context: {}
-
-    };
-
-    if (action)
-        window.dataLayer.push(eventPayload);
+  if (action)
+    window.dataLayer.push(eventPayload);
 
 });

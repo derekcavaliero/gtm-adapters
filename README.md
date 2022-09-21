@@ -6,6 +6,9 @@ This repository contains adapters for sending interaction data to the GTM dataLa
 ## Styles & Conventions
 **These are opinionated style preferences for the sake of maintaining this repository.** Each adapter should be easy to configure to your own preferences if the default formats do not match your specific implementation requirements.
 
+### Indentation
+GTM uses a tab size = 2 spaces when formatting code. In order to keep the indentation in-line with the code editor - adapters in this repo will use a tab size of 2 spaces.
+
 ### dataLayer Global
 It is assumed that the website/appication is using the default `window.dataLayer` global. Changing the default dataLayer global variable is uncommon. However, if the dataLayer *has* been customized, the adapters will not work without modifying the dataLayer references in each script. 
 ### dataLayer Event Names

@@ -11,50 +11,53 @@
 dataLayer = window.dataLayer || [];
 window.addEventListener('message', function(message) {
 
-    if ('hsFormCallback' != message.data.type) return;
+  if ('hsFormCallback' != message.data.type) 
+    return;
 
-    var callback = message.data.eventName;
-    
-    var subscribeTo = {
-        onFormReady: 'loaded',
-        onFormFailedValidation: 'failed_validation',
+  var callback = message.data.eventName;
+  
+  var subscribeTo = {
+    onFormReady: 'loaded',
+    onFormFailedValidation: 'failed_validation',
 
-        // See this community post for an important note on an unresolved bug for the following 2 callbacks.
-        // https://community.hubspot.com/t5/HubSpot-Ideas/Issues-with-HubSpot-onFormSubmit-onFormSubmitted-Callbacks/idc-p/675058#M119504
-        onFormSubmit: 'submit',
-        onFormSubmitted: 'submitted'
-    };
+    // See this community post for an important note on an unresolved bug for the following 2 callbacks.
+    // https://community.hubspot.com/t5/HubSpot-Ideas/Issues-with-HubSpot-onFormSubmit-onFormSubmitted-Callbacks/idc-p/675058#M119504
+    onFormSubmit: 'submit',
+    onFormSubmitted: 'submitted'
+  };
 
-    if (!subscribeTo.hasOwnProperty(callback)) return;
+  if (!subscribeTo.hasOwnProperty(callback)) 
+    return;
 
-    var action = subscribeTo[callback];
+  var action = subscribeTo[callback];
 
-    var platform = 'hubspot',
-        object = 'form',
-        namespace = platform;
+  var platform = 'hubspot',
+      object = 'form',
+      namespace = platform;
 
-    var formGuid = message.data.id;
+  var formGuid = message.data.id;
 
-    var eventPayload = {
+  var eventPayload = {
 
-        /**
-         * Default configuration should result in the following dataLayer events:
-         * - hubspot.form_loaded
-         * - hubspot.form_failed_validation
-         * - hubspot.form_submit
-         * - hubspot.form_submitted
-         */
-        event: namespace + '.' + object + '_' + action,
+    /**
+     * Default configuration should result in the following dataLayer events:
+     * - hubspot.form_loaded
+     * - hubspot.form_failed_validation
+     * - hubspot.form_submit
+     * - hubspot.form_submitted
+     */
+    event: namespace + '.' + object + '_' + action,
 
-        event_context: {
-            platform: platform,
-            object: object,
-            form_id: formGuid
-        },
+    event_context: {
+      platform: platform,
+      object: object,
+      form_id: formGuid
+    },
 
-        user_context: {}
-    };
+    user_context: {}
 
-    window.dataLayer.push(eventPayload);
+  };
+
+  window.dataLayer.push(eventPayload);
 
 });
