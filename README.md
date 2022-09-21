@@ -99,6 +99,12 @@ Additionally, when submitting a pull request, please provide an example URL wher
 
 #### Meetings
 `adapters/Calendly/meeting.js`
+
+### Drift
+
+#### Chat
+`adapters/Drift/chat.js`
+
 ### ChiliPiper
 
 #### Meetings
