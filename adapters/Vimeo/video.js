@@ -1,6 +1,6 @@
 /**
  * GTM dataLayer Adapter for Vimeo embedded video interactions.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Github: https://github.com/derekcavaliero/gtm-adapters
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
  * Credits: 
@@ -8,10 +8,11 @@
  * https://developer.vimeo.com/player/sdk/reference
  */
 
- dataLayer = window.dataLayer || [];
+dataLayer = window.dataLayer || [];
 (function(window, document) {
 
   var platform = 'vimeo',
+      namespace = platform,
       object = 'video';
 
   /**
@@ -98,48 +99,57 @@
 
   function push(player, status, event) {
 
+    var elapsedTime,
+        percent;
+
+    if (status == 'start') {
+      elapsedTime = 0;
+      percent = 0;
+    }
+
+    if (status == 'progress') {
+      elapsedTime = event.time;
+      percent = event.data.percent;
+    }
+
+    if (status == 'complete') {
+      elapsedTime = player._duration;
+      percent = 100;
+    }
+
     var payload = {
 
       'event': 'gtm.video',
+      
       'gtm.element': player.element,
       'gtm.elementUrl': player.element.src,
       'gtm.elementId': player.element.id,
+
       'gtm.videoStatus': status,
       'gtm.videoProvider': platform,
+      'gtm.videoPercent': percent,
       'gtm.videoDuration': player._duration,
+      'gtm.videoElapsedTime': elapsedTime,
       'gtm.videoTitle': player._title,
       'gtm.videoUrl': player._url,
       'gtm.videoVisible': true,
 
       'event_context': {
-          platform: platform,
-          object: object,
-          video_status: status,
-          video_provider: platform,
-          video_duration: player._duration,
-          video_title: player._title,
-          video_url: player._url,
-          video_player_id: player.element.id
+        platform: platform,
+        object: object,
+        video_status: status,
+        video_provider: platform,
+        video_duration: player._duration,
+        video_title: player._title,
+        video_url: player._url,
+        video_player_id: player.element.id,
+        video_elapsed_time: elapsedTime,
+        video_percent: percent
       },
 
       'user_context': {}
 
     };
-
-    if (status == 'progress') {
-      payload['gtm.videoPercent'] = event.data.percent;
-      payload['gtm.videoElapsedTime'] = event.time;
-    }
-
-    if (status == 'start') {
-      payload['gtm.videoCurrentTime'] = 0;
-      payload['gtm.videoElapsedTime'] = 0;
-    }
-
-    if (status == 'complete') {
-      payload['gtm.videoCurrentTime'] = player._duration;
-      payload['gtm.videoElapsedTime'] = player._duration;
-    }
 
     window.dataLayer.push(payload);
 
