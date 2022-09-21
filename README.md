@@ -102,6 +102,11 @@ Additionally, when submitting a pull request, please provide an example URL wher
 `adapters/ChiliPiper/meeting.js`
 ### HubSpot
 
+
+### HTML5 (Native Browser Elements)
+#### Video
+`adapters/Html5/video.js`
+
 #### Forms 
 `adapters/HubSpot/form.js`
 
