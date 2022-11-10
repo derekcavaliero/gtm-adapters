@@ -1,6 +1,6 @@
 /**
  * GTM dataLayer Adapter for ChiliPiper embedded meeting interactions.
- * Version: 1.0.0
+ * Version: 1.0.1
  * https://github.com/derekcavaliero/gtm-adapters/
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
  * Credits: 
@@ -11,7 +11,7 @@
 dataLayer = window.dataLayer || [];
 window.addEventListener('message', function(message) {
 
-  if (!message.origin.match(/^https:\/\/[a-z0-9\.\-]{2,})?\.chilipiper\.com$/)) 
+  if (!message.origin.match(/^https:\/\/[a-z0-9\.\-]{2,}?\.chilipiper\.com$/)) 
     return;
 
   var action,
