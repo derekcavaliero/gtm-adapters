@@ -1,6 +1,6 @@
 /**
  * GTM dataLayer Adapter for Calendly embedded meeting interactions.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Github: https://github.com/derekcavaliero/gtm-adapters
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
  * Credits: 
@@ -44,9 +44,9 @@ window.addEventListener('message', function(message) {
 
   action = subscribeTo[messageType];
 
-  var iframe = document.querySelectorAll('iframe[src^="' + message.origin + '"]');
+  var iframe = document.querySelector('iframe[src^="' + message.origin + '"]');
 
-  var meetingUrl = iframe.length == 1 ? iframe.src : undefined;
+  var meetingUrl = iframe ? iframe.src : undefined;
   var meetingParams = new URLSearchParams(meetingUrl);
 
   var platform = 'calendly',
