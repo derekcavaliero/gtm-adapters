@@ -32,7 +32,7 @@ window.addEventListener('message', function(message) {
 
   videoStatus = subscribeTo[messageType];
 
-  var videoPlayer = document.getElementById('hs_player_' + message.data.embedId),
+  var videoPlayer = document.querySelector('[data-hsv-id="' + message.data.videoId + '"]'),
       videoUrl = videoPlayer.src.split('?')[0],
       videoTitle = message.data.videoTitle;
 
@@ -49,7 +49,7 @@ window.addEventListener('message', function(message) {
 
     'event': 'gtm.video',
     
-    'gtm.element': player,
+    'gtm.element': videoPlayer,
     'gtm.elementUrl': videoUrl,
     'gtm.elementId': videoPlayer.id,
 
@@ -58,7 +58,7 @@ window.addEventListener('message', function(message) {
     'gtm.videoPercent': undefined,
     'gtm.videoDuration': undefined, 
     'gtm.videoTitle': videoTitle,
-    'gtm.videoUrl': playerSrc,
+    'gtm.videoUrl': videoUrl,
 
     'event_context': {
       platform: platform,
