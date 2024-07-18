@@ -30,7 +30,7 @@ dataLayer = window.dataLayer || [];
 
     var force = typeof force !== 'undefined' ? force : false;
 
-    if (player.hasOwnProperty('gtmAdapater') && !force)
+    if (player.hasOwnProperty('gtmAdapter') && !force)
       return;
 
     player.gtmAdapter = {
@@ -90,7 +90,7 @@ dataLayer = window.dataLayer || [];
 
       Object.assign(eventPayload, {
 
-        'event': 'gtm.video',
+        'event': namespace + '.video',
         
         'gtm.videoStatus': status,
         'gtm.videoProvider': platform,
@@ -98,20 +98,7 @@ dataLayer = window.dataLayer || [];
         'gtm.videoDuration': player.duration, 
         'gtm.videoPercent': calculated.percent, 
         'gtm.videoTitle': player.gtmAdapter.file,
-        'gtm.videoUrl': player.currentSrc,
-
-        'event_context': {
-          video_url: player.currentSrc,
-          video_title: player.gtmAdapter.file,
-          video_provider: platform,
-          video_elapsed_time: player.currentTime,
-          video_duration: player.duration,
-          video_percent: calculated.percent, 
-          video_status: status,
-          video_player_id: player.id
-        },
-
-        'user_context': {}
+        'gtm.videoUrl': player.currentSrc
 
       });
     
@@ -121,24 +108,19 @@ dataLayer = window.dataLayer || [];
 
         'event': namespace + '.' + object + '_' + action,
 
-        'event_context': {
-          audio_url: player.currentSrc,
-          audio_title: player.gtmAdapter.file,
-          audio_provider: platform,
-          audio_duration: player.duration,
-          audio_percent: calculated.percent, 
-          audio_status: status,
-          audio_player_id: player.id
-        },
-
-        'user_context': {}
+        'audio': {
+          'url': player.currentSrc,
+          'title': player.gtmAdapter.file,
+          'provider': platform,
+          'duration': player.duration,
+          'percent': calculated.percent, 
+          'status': status,
+          'player_id': player.id
+        }
 
       });
 
     }
-
-    eventPayload.event_context.platform = platform;
-    eventPayload.event_context.object = object;
 
     window.dataLayer.push(eventPayload);
 
