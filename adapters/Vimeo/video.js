@@ -1,6 +1,6 @@
 /**
  * GTM dataLayer Adapter for Vimeo embedded video interactions.
- * Version: 1.0.1
+ * Version: 2.0.0
  * Github: https://github.com/derekcavaliero/gtm-adapters
  * Copyright (c) 2022 Derek Cavaliero <@derekcavaliero>
  * Credits: 
@@ -12,7 +12,6 @@ dataLayer = window.dataLayer || [];
 (function(window, document) {
 
   var platform = 'vimeo',
-      namespace = platform,
       object = 'video';
 
   /**
@@ -119,7 +118,7 @@ dataLayer = window.dataLayer || [];
 
     var payload = {
 
-      'event': 'gtm.video',
+      'event': platform + '.video',
       
       'gtm.element': player.element,
       'gtm.elementUrl': player.element.src,
